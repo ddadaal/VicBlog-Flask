@@ -12,14 +12,13 @@ schema={
     'name':{
         'type':"string",
         'minlength':1,
-        'maxlength':10,
     },
     'role':{
-        'type':'list',
-        'allowed':["user",'admin'],
+        'type':'string',
+        'allowed':['user','admin'],
     },
     'sign_up_time':{
-        'type':'integer',
+        'type':'datetime',
     }
 }
 

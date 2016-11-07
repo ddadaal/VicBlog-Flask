@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, flash, redirect
-from app import mongo
-import datetime
+from app import mongo,communicator
+from datetime import datetime
 import pymongo
 
 @app.route('/')
@@ -14,10 +14,10 @@ def login():
     if request.method=="POST":
         register_package={
             'name':request.form['name'],
-            'date':str(datetime.datetime.now()),
-            'type':'user',
+            'sign_up_time':datetime.strftime(datetime.utcnow(),"%a, %d %b %Y %H:%M:%S GMT"),
+            'role':'user',
         }
-        return str(register_package)
-
+       # return str(register_package)
+        return communicator.add(register_package)
     else:
         return render_template("login.html")
