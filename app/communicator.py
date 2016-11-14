@@ -1,6 +1,38 @@
-import requests
+import requests,datetime
 
 address="http://127.0.0.1:5001/users"
+
+class BaseSubmit(object):
+    submit_url=None
+
+    def execute(self):
+        pass
+    
+    def construct_payload(self):
+        pass
+
+    def acquire_time(self):
+        return datetime.datetime.strftime(datetime.utcnow(),"%a, %d %b %Y %H:%M:%S GMT")
+
+class LoginSubmit(BaseSubmit):
+    def __init__(self,username,password):
+        self.username=username
+        self.password=password
+        self.submit_url="http://127.0.0.1:5001/users"
+    
+    def construct_payload(self):
+        payload={
+            'username':self.username, 
+            'password':self.password, 
+            'time':self.acquire_time(), 
+        }
+        return payload
+    
+    def execute(self):
+        payload=self.construct_payload()
+        response=requests.get(self.submit_url, payload)
+
+
 
 def add(package,update_if_exists=True):
     if not exists(package):

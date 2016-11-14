@@ -16,13 +16,13 @@
 				<a class="navbar-brand" href="/">Index</a>
 			</div>
 			<ul class="nav navbar-nav navbar-left">
-				<li class="active">
+				<li id="tab_index">
 					<a href="/">Home</a>
 				</li>
-				<li>
+				<li id="tab_articles">
 					<a href="/articles">Articles</a>
 				</li>
-				<li>
+				<li id="tab_about">
 					<a href="/about">About</a>
 				</li>
 			</ul>
@@ -36,9 +36,17 @@
     {% block content %}
     {% endblock %}
 	</div>
+	<hr>
   <div class="container">
-    This is the foot!
+		<footer class="footer">
+			<div class="contaner">
+				<p style="text-align: center;">Developed by <a href="https://github.com/viccrubs/">viccrubs</a></p>
+			</div>	
+		</footer>
   </div>
+		<script type="text/javascript">
+		$('#tab_{{page_name}}').attr("class","active");
+	</script>
 </body>
 
 </html>
