@@ -15,8 +15,9 @@ def index():
 def login():
     if request.method=="POST":
         login_package={
-            'user':request.form['user'], 
+            'username':request.form['user'], 
             'password': request.form['password'],
+            'role':"user", 
         }
 
         #register_package={
@@ -25,9 +26,24 @@ def login():
         #    'role':'user',
        # }
        # return str(register_package)
-        return communicator.add(register_package).text
+        submit = communicator.LoginSubmit(login_package)
+        return submit.execute()
     else:
         return render_template("login.html",title="Login",page_name="login")
+
+@app.route('/register',methods=['GET','POST'])
+def register():
+    if request.method=="POST":
+        register_package={
+            'username':request.form['user'], 
+            'password':request.form['password'], 
+            'role':'user', 
+        }
+        submit = communicator.RegisterSubmit(register_package)
+        return submit.execute()
+
+    else:
+        return render_template("register.html",title="Register",page_name="Register")
 
 @app.route('/about')
 def about():

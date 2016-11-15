@@ -8,25 +8,29 @@ RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
 
 schema_user = {
-    'name': {
+    'username': {
         'type': "string",
         'minlength': 1,
-    },
-    'role': {
-        'type': 'string',
-        'allowed': ['user', 'admin'],
-    },
-    'sign_up_time': {
+    }, 
+    'password':{
+        'type':'string', 
+        'minlength': 1, 
+    }, 
+    'role':{
+        'type':'string',
+        'allowed':['user','admin'], 
+    }, 
+    'time': {
         'type': 'datetime',
-    }
+    }, 
 }
 
 user = {
     'additional_lookup': {
         'url': 'regex("[\w]+")',
-        'field': 'name'
+        'field': 'username'
     },
-    'resource_methods': ['GET', 'POST','PATCH'],
+    'resource_methods': ['GET', 'POST'],
     'schema': schema_user,
 }
 
@@ -59,4 +63,10 @@ article = {
     'schema': schema_article,
 }
 
-DOMAIN = {'users': user,'article': article}
+login_attempt = {
+    'resource_methods':['GET'], 
+    'schema':schema_user, 
+}
+
+
+DOMAIN = {'users': user,'article': article, 'session': login_attempt}
