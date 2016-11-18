@@ -28,7 +28,11 @@
 			</ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a href="/login">Login</a>
+					{% if User %}
+					<a href="/logout">Welcome, {{ User.username }}</a>
+					{% else %}
+         	<a href="/login">Login</a>
+					 {% endif %}
         </li>
       </ul>
 	</nav>

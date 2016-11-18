@@ -1,5 +1,5 @@
 import requests, datetime, json
-from app import database
+from app import database, token
 
 address="http://127.0.0.1:5001/users"
 
@@ -55,10 +55,9 @@ class LoginSubmit(BaseSubmit):
 
     def execute(self):
         if self.validate_login():
-            token=Token(self.username)
-            return str(token)
+            return 200, token.generate(self.username)
         else:
-            return "Wrong Password!"
+            return 402, ""
 
 # class RegisterSubmit(BaseSubmit):
 #     def __init__(self, RegisterPackage):
