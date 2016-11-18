@@ -1,12 +1,11 @@
 from app import app
 from flask import render_template, request, flash, redirect
-from app import mongo,communicator
+from app import mongo,submits
 from datetime import datetime
 import pymongo
 
 
-
-@app.route('/')
+@app.route("/")
 def index():
     #client=mongo.connect()
     return render_template("index.html",title="Welcome to vicblog!",page_name="index")
@@ -26,7 +25,7 @@ def login():
         #    'role':'user',
        # }
        # return str(register_package)
-        submit = communicator.LoginSubmit(login_package)
+        submit = submits.LoginSubmit(login_package)
         return submit.execute()
     else:
         return render_template("login.html",title="Login",page_name="login")
@@ -39,7 +38,7 @@ def register():
             'password':request.form['password'], 
             'role':'user', 
         }
-        submit = communicator.RegisterSubmit(register_package)
+        submit = submit.RegisterSubmit(register_package)
         return submit.execute()
 
     else:
