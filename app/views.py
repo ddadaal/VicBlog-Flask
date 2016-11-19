@@ -10,7 +10,7 @@ def before_request():
 
 @app.route("/")
 def index():
-    return render_template("index.html",title="Welcome to vicblog!",page_name="index",User=g.user)
+    return render_template("index.html",title="Welcome to vicblog!",page_name="index")
 
 @app.route('/login',methods=["GET","POST"])
 def login():
@@ -29,7 +29,7 @@ def login():
         if status_code==402:
             redirect("/login")
     else:
-        return render_template("login.html",title="Login",page_name="login",User=g.user)
+        return render_template("login.html",title="Login",page_name="login")
 
 @app.route('/register',methods=['GET','POST'])
 def register():
@@ -42,11 +42,11 @@ def register():
         submit = submits.RegisterSubmit(register_package)
         return submit.execute()
     else:
-        return render_template("register.html",title="Register",page_name="Register",User=g.user)
+        return render_template("register.html",title="Register",page_name="Register")
 
 @app.route('/about')
 def about():
-    return render_template("about.html",page_name="about",User=g.user)
+    return render_template("about.html",page_name="about")
 
 @app.route('/logout')
 def logout():
@@ -57,4 +57,4 @@ def logout():
 @app.route('/articles')
 def articles():
     articles=controllers.acquire_articles()
-    return render_template("articles.html",page_name="articles",articles=articles,User=g.user)
+    return render_template("articles.html",page_name="articles",articles=articles)

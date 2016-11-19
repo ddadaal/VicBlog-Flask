@@ -27,11 +27,10 @@
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-					{% if User %}
-					<!--<a href="/logout">Welcome, {{ User.username }}</a> -->
+					{% if g.user %}
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							Welcome, {{User.username}}
+							Welcome, {{g.user.username}}
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu" role="menu">
@@ -42,9 +41,25 @@
 					</li>
 
 					{% else %}
-					<li>
-					<a href="/login">Login</a> {% endif %}
-				</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							Login
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" role="menu">
+							
+							<form class="navbar-form" action="/login" method="POST" target="_self" name="login_form"> 
+								<p style="display: none; " class="alert alert-danger" role="alert" id="warning">233</p>
+								<div class="form-group">
+									<input id="form-user" class="form-control" name="user" placeholder="Username"/>
+   									<input id="form-password" class="form-control" name="password" type="password" placeholder="Password"/>
+								</div>						
+  								<button class="btn btn-default" type="submit">Login</button>
+								<a class="btn btn-default" href="/register">Register</a>
+							</form>
+						</ul>
+					</li>
+					{% endif %}
 			</ul>
 	</nav>
 	<div class="container">
