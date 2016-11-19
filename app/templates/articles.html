@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+{% if articles %}
+<div class="container">
+    <ul>
+{% for article in articles %}
+    <li>
+        <a>{{article.title}}</a>
+        <hr>
+        {{article.content}}
+    </li>
+{% endfor %}
+    </ul>
+</div>
+{% else %}
+<p> No articles available!</p>
+{% endif %}
+{% endblock %}
+    

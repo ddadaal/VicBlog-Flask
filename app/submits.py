@@ -1,5 +1,6 @@
 import requests, datetime, json
-from app import database, token
+from app import database, token, user
+from markdown2 import Markdown
 
 address="http://127.0.0.1:5001/users"
 
@@ -58,6 +59,26 @@ class LoginSubmit(BaseSubmit):
             return 200, token.generate(self.username)
         else:
             return 402, ""
+
+class ArticleSubmit(BaseSubmit):
+    def __init__(self, ArticlePackage):
+        self.user = ArticlePackage.user
+        self.content=ArticlePackage.content
+        self.submit_time=self.acquire_time()
+        self.title=ArticlePackage.title
+
+    def construct_payload(self):
+        payload={
+            "username": self.user.username,
+            "submit_time": self.submit_time, 
+            "content": self.content,
+            "title": self.title,  
+        }
+        return payload
+    
+    def execute(self):
+        collection="article"
+        return database.insert(collection,self.construct_payload())
 
 # class RegisterSubmit(BaseSubmit):
 #     def __init__(self, RegisterPackage):

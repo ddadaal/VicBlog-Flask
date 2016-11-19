@@ -16,3 +16,7 @@ def insert(collection, payload):
 def find_one(collection, query):
     db=connect()
     return db[collection].find_one(query)
+
+def find(collection, query):
+    db=connect()
+    return db[collection].find(query)
