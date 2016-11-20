@@ -27,7 +27,7 @@ def login():
             resp.set_cookie("login", token)
             return resp
         if status_code==402:
-            redirect("/login")
+            return redirect("/login")
     else:
         return render_template("login.html",title="Login",page_name="login")
 
@@ -35,8 +35,8 @@ def login():
 def register():
     if request.method=="POST":
         register_package={
-            'username':request.form['user'], 
-            'password':request.form['password'], 
+            'username':request.form['form_user'], 
+            'password':request.form['form_password'], 
             'role':'user', 
         }
         submit = submits.RegisterSubmit(register_package)
@@ -58,3 +58,12 @@ def logout():
 def articles():
     articles=controllers.acquire_articles()
     return render_template("articles.html",page_name="articles",articles=articles)
+
+@app.route('/compose',methods=["GET","POST"])
+def compose():
+    if request.method=="GET":
+        if g.user==None:
+            return redirect(url_for("login"))
+        return render_template("compose.html",title="Compose")
+    else:
+        pass

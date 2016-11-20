@@ -1,5 +1,5 @@
 import requests, datetime, json
-from app import database, token, user
+from app import database, user
 from markdown2 import Markdown
 
 address="http://127.0.0.1:5001/users"
@@ -56,7 +56,7 @@ class LoginSubmit(BaseSubmit):
 
     def execute(self):
         if self.validate_login():
-            return 200, token.generate(self.username)
+            return 200, user.generate(self.username)
         else:
             return 402, ""
 
