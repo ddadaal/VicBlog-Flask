@@ -11,7 +11,7 @@ def connect():
 
 def insert(collection, payload):
     db=connect()
-    return db[collection].insert_one(payload).inserted_id
+    return db[collection].insert_one(payload)
 
 def find_one(collection, query):
     db=connect()

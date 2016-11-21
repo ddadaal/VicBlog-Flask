@@ -16,8 +16,8 @@ def index():
 def login():
     if request.method=="POST":
         login_package={
-            'username':request.form['user'], 
-            'password': request.form['password'],
+            'username':request.form['form_user'], 
+            'password': request.form['form_password'],
             'role':"user", 
         }
         submit = submits.LoginSubmit(login_package)

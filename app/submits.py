@@ -41,7 +41,8 @@ class RegisterSubmit(BaseSubmit):
         if self.exist():
             return "Existing"
         else:
-            return str(database.insert("users",payload))
+            database.insert("users",payload)
+            return "OK"
 
 class LoginSubmit(BaseSubmit):
     def __init__(self, LoginPackage):
