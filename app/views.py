@@ -2,7 +2,7 @@ from app import app
 from flask import render_template, request, flash, redirect, Response, make_response, Markup, g, url_for
 from app import submits,user,controllers
 from datetime import datetime
-import pymongo
+import pymongo, json
 
 @app.before_request
 def before_request():
@@ -22,12 +22,14 @@ def login():
         }
         submit = submits.LoginSubmit(login_package)
         status_code, token = submit.execute()
-        if status_code==200:
-            resp=make_response(redirect("/"))
-            resp.set_cookie("login", token)
-            return resp
-        if status_code==402:
-            return redirect("/login")
+        
+        return_dict={
+            "status_code": status_code, 
+            "token": token, 
+            "user": user.User.create_from_token(token), 
+        }
+
+        return json.dumps(return_dict,cls=user.UserEncoder)
     else:
         return render_template("login.html",title="Login",page_name="login")
 
@@ -62,7 +64,7 @@ def articles():
 @app.route('/compose',methods=["GET","POST"])
 def compose():
     if request.method=="GET":
-        if g.user==None:
+        if g.user==None or (g.user!=None and g.user.role=="user"):
             return redirect(url_for("login"))
         return render_template("compose.html",title="Compose")
     else:

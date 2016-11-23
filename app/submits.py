@@ -2,11 +2,8 @@ import requests, datetime, json
 from app import database, user
 from markdown2 import Markdown
 
-address="http://127.0.0.1:5001/users"
-
 
 class BaseSubmit(object):
-    submit_url=None
 
     def execute(self):
         pass
@@ -52,21 +49,26 @@ class LoginSubmit(BaseSubmit):
     
     def validate_login(self):
         query={"username":self.username}
-        return database.find_one("users",query)['password']==self.password
-
+        document=database.find_one("users",query)
+        if document['password']==self.password:
+            return True, document
+        else:
+            return False, None
 
     def execute(self):
-        if self.validate_login():
-            return 200, user.generate(self.username)
+        status, document=self.validate_login()
+        if status:
+            return 200, user.generate(document["username"],document["role"])
         else:
-            return 402, ""
+            return 401, ""
 
 class ArticleSubmit(BaseSubmit):
     def __init__(self, ArticlePackage):
-        self.user = ArticlePackage.user
-        self.content=ArticlePackage.content
+        self.username = ArticlePackage["username"]
+        self.content=ArticlePackage["content"]
         self.submit_time=self.acquire_time()
-        self.title=ArticlePackage.title
+        self.title=ArticlePackage["title"]
+        self.categories=ArticlePackage["categories"]
 
     def construct_payload(self):
         payload={
