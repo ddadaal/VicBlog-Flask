@@ -50,12 +50,6 @@ def register():
 def about():
     return render_template("about.html",page_name="about")
 
-@app.route('/logout')
-def logout():
-    resp=make_response(redirect("/"))
-    resp.set_cookie("login","")
-    return resp
-
 @app.route('/articles')
 def articles():
     articles=controllers.acquire_articles()

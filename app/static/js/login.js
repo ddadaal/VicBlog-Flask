@@ -33,6 +33,11 @@ function login() {
 
 };
 
+function logout(){
+    Cookies.remove("login");
+    location.reload();
+}
+
 
 
 function login_clear() {
