@@ -1,9 +1,22 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
+{% block title %}
+<title>Compose</title>
+{% endblock %} 
+{% block js %}
+<script src="epiceditor/js/epiceditor.js"></script>
+<script type="text/javascript">
+    var editor=new EpicEditor().load();
+</script>
+{% endblock %} 
+
 {% block content %}
 <div class="container">
     <p>You have loggged in as {{ g.user.username }}. Not? <a href="/logout">Click here to log out.</a></p>
     <hr>
-    <textarea>
-    </textarea>
+    <div id="epiceditor">
+
+    </div>
+</div>
+</div>
 
 {% endblock %}
