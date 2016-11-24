@@ -1,4 +1,14 @@
 {% extends "base.html" %}
+{% block title %}
+<title>VicBlog</title>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+activate_tab("home");
+</script>
+{% endblock %}
+
 {% block content %}
 <h1> Welcome to my ugly blog</h1>
 {% for post in posts %}

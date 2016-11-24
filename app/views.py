@@ -10,7 +10,7 @@ def before_request():
 
 @app.route("/")
 def index():
-    return render_template("index.html",title="Welcome to vicblog!",page_name="index")
+    return render_template("index.html")
 
 @app.route('/login',methods=["GET","POST"])
 def login():
@@ -31,7 +31,7 @@ def login():
 
         return json.dumps(return_dict,cls=user.UserEncoder)
     else:
-        return render_template("login.html",title="Login",page_name="login")
+        return render_template("login.html")
 
 @app.route('/register',methods=['GET','POST'])
 def register():
@@ -44,22 +44,22 @@ def register():
         submit = submits.RegisterSubmit(register_package)
         return submit.execute()
     else:
-        return render_template("register.html",title="Register",page_name="Register")
+        return render_template("register.html")
 
 @app.route('/about')
 def about():
-    return render_template("about.html",page_name="about")
+    return render_template("about.html")
 
 @app.route('/articles')
 def articles():
     articles=controllers.acquire_articles()
-    return render_template("articles.html",page_name="articles",articles=articles)
+    return render_template("articles.html",articles=articles)
 
 @app.route('/compose',methods=["GET","POST"])
 def compose():
     if request.method=="GET":
         if g.user==None or (g.user!=None and g.user.role=="user"):
             return redirect(url_for("login"))
-        return render_template("compose.html",title="Compose")
+        return render_template("compose.html")
     else:
         pass

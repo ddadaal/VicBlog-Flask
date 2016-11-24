@@ -4,7 +4,6 @@ from markdown2 import Markdown
 
 
 class BaseSubmit():
-
     def execute(self):
         pass
     
