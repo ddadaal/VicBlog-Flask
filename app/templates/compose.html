@@ -3,20 +3,48 @@
 <title>Compose</title>
 {% endblock %} 
 {% block js %}
-<script src="epiceditor/js/epiceditor.js"></script>
-<script type="text/javascript">
-    var editor=new EpicEditor().load();
-</script>
+<link rel="stylesheet" href="static/css/simplemde.min.css"/>
+<link rel="stylesheet" href="static/css/highlight.default.min.css"/>
+<link rel="stylesheet" href="static/css/font-awesome.min.css"/>
+<script src="static/js/highlight.min.js"></script>
+<script src="static/js/simplemde.min.js"></script>
+<script src="static/js/upload.js"></script>
 {% endblock %} 
 
 {% block content %}
 <div class="container">
     <p>You have loggged in as {{ g.user.username }}. Not? <a href="/logout">Click here to log out.</a></p>
-    <hr>
-    <div id="epiceditor">
-
+    <hr/>
+    <textarea id="editor">
+    </textarea>
+    <hr/>
+    <button class="btn btn-default">Submit</button>    
+</div>
+<div class="modal fade" id="img_upload" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4> Upload an image</h4>
+            </div>
+            <div class="modal-body">
+                <p>233</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
 </div>
 </div>
-
+<script type="text/javascript">
+    var simplemde = new SimpleMDE({ 
+        autoDownloadFontAwesome : false, 
+        element: document.getElementById("editor"),
+        promptURLs: true, 
+        renderingConfig: {
+            codeSyntaxHighlighting: true,
+        },
+     });
+     //simplemde.drawImage=img_upload;
+</script>
 {% endblock %}
