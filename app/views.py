@@ -63,6 +63,8 @@ def compose():
             return redirect(url_for("login"))
         return render_template("compose.html")
     else:
-        for uploaded in request.files:
-            filename=secure_filename(uploaded.filename)
-            uploaded.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        f= request.files["img_upload"]
+        if f:          
+            filename=secure_filename(f.filename)
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return "success"

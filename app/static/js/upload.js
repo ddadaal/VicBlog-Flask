@@ -1,15 +1,16 @@
 function img_upload() {
-    var upload = document.getElementById("img_upload_selector");
-    var form = new FormData();
-    var fileList=upload.files;
-    for (var i= 0; i < fileList.length;i++){
-        form.append(fileList[i].name, fileList[i]);
-    };
+    var form= new FormData(document.getElementById("form_img_upload"));
     $.ajax({
         type: "POST", 
         url: "/compose", 
         contentType: false,
         data: form,  
-        success: function(){ console.log("success"); }
+        processData : false, 
+        cache: false, 
+        success: function(msg){ 
+            if (msg==="success"){
+                $("#img_upload_modal").modal('hide');
+            }
+         },
     });
 }
