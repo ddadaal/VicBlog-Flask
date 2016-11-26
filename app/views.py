@@ -2,7 +2,8 @@ from app import app
 from flask import render_template, request, flash, redirect, Response, make_response, Markup, g, url_for
 from app import submits,user,controllers
 from datetime import datetime
-import pymongo, json
+import pymongo, json, os
+from werkzeug import secure_filename
 
 @app.before_request
 def before_request():
@@ -62,4 +63,6 @@ def compose():
             return redirect(url_for("login"))
         return render_template("compose.html")
     else:
-        pass
+        for uploaded in request.files:
+            filename=secure_filename(uploaded.filename)
+            uploaded.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))

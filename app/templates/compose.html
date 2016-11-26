@@ -3,33 +3,41 @@
 <title>Compose</title>
 {% endblock %} 
 {% block js %}
-<link rel="stylesheet" href="static/css/simplemde.min.css"/>
-<link rel="stylesheet" href="static/css/highlight.default.min.css"/>
-<link rel="stylesheet" href="static/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="static/css/simplemde.min.css" />
+<link rel="stylesheet" href="static/css/highlight.default.min.css" />
+<link rel="stylesheet" href="static/css/font-awesome.min.css" />
 <script src="static/js/highlight.min.js"></script>
 <script src="static/js/simplemde.min.js"></script>
-<script src="static/js/upload.js"></script>
+<script src="static/js/upload.js"></script> 
 {% endblock %} 
-
 {% block content %}
 <div class="container">
     <p>You have loggged in as {{ g.user.username }}. Not? <a href="/logout">Click here to log out.</a></p>
     <hr/>
     <textarea id="editor">
     </textarea>
+    <div class="container" id="img_update">
+        <button class="btn btn-default" data-toggle="modal" data-target="#img_upload_modal">
+            Upload images
+        </button>
+    </div>
     <hr/>
-    <button class="btn btn-default">Submit</button>    
+    <button class="btn btn-default">Submit</button>
 </div>
-<div class="modal fade" id="img_upload" role="dialog" aria-hidden="true">
+<div class="modal fade" id="img_upload_modal" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4> Upload an image</h4>
+                <h4>Upload images</h4>
             </div>
             <div class="modal-body">
-                <p>233</p>
+                <p>Choose your pictures: </p>
+                <form action="/compose" method="POST" enctype="multipart/form-data" id="form_img_upload">
+                    <input type="file" id="img_upload_selector" multiple="multiple" />
+                </form>
             </div>
             <div class="modal-footer">
+                <a class="btn btn-primary" id="btn-confirm" onclick="img_upload()">Confirm</a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -39,12 +47,9 @@
 <script type="text/javascript">
     var simplemde = new SimpleMDE({ 
         autoDownloadFontAwesome : false, 
-        element: document.getElementById("editor"),
-        promptURLs: true, 
+        //element: document.getElementById("editor"),
         renderingConfig: {
             codeSyntaxHighlighting: true,
         },
      });
-     //simplemde.drawImage=img_upload;
-</script>
-{% endblock %}
+</script> {% endblock %}

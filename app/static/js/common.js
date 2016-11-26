@@ -1,5 +1,6 @@
-	function activate_tab(page_name){
-		$(document).ready(function(){
-			$("#tab_"+page_name).attr("class","active");
-		})
-	};
+function init(title, page_name) {
+	$(document).ready(function () {
+		document.title = title;
+		$("#tab_" + page_name).attr("class", "active");
+	})
+}
