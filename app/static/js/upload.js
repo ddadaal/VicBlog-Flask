@@ -1,3 +1,6 @@
+var file_list={};
+
+
 function img_upload() {
     var form= new FormData(document.getElementById("form_img_upload"));
     $.ajax({
@@ -8,9 +11,36 @@ function img_upload() {
         processData : false, 
         cache: false, 
         success: function(msg){ 
-            if (msg==="success"){
+            var resp=JSON.parse(msg);
+            if (resp["status"]==="success"){
                 $("#img_upload_modal").modal('hide');
+                var filename=resp["filename"];
+                file_list[filename]=resp["url"];
+                update_list();
             }
          },
     });
 }
+
+
+function add_image(filename,url){
+    var original = simplemde.value();
+    original+="![{0}]({1})".format(filename,url);
+    simplemde.value(original);    
+}
+
+function update_list(){
+    var list=document.getElementById("files");
+    for (var filename in file_list){
+        var file =document.createElement("p");
+        var url = document.createElement("a");
+        url.setAttribute("href","javascript:add_image(\"{0}\",\"{1}\");".format(filename,file_list[filename]));
+        url.innerText = file_list[filename];
+        file.innerHTML="Filename: {0} :".format(filename);
+        file.appendChild(url);
+        list.append(file);
+    }
+
+}
+
+

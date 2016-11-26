@@ -64,7 +64,13 @@ def compose():
         return render_template("compose.html")
     else:
         f= request.files["img_upload"]
+        filename=""
         if f:          
             filename=secure_filename(f.filename)
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return "success"
+        return_package={
+            "status":"success",
+            "filename": filename,  
+            "url":os.path.join(app.config['UPLOAD_FOLDER'], filename), 
+        }
+        return json.dumps(return_package)

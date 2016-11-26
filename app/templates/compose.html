@@ -20,11 +20,18 @@
         <button class="btn btn-default" data-toggle="modal" data-target="#img_upload_modal">
             Upload images
         </button>
+        <p>File Uploaded</p>
+        <div class="container" id="files">
+            
+        </div>
     </div>
-    <hr/>
+
+    <hr>
     <button class="btn btn-default">Submit</button>
 </div>
+
 <div class="modal fade" id="img_upload_modal" role="dialog" aria-hidden="true">
+
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -42,14 +49,15 @@
             </div>
         </div>
     </div>
+
 </div>
 </div>
 <script type="text/javascript">
     var simplemde = new SimpleMDE({ 
         autoDownloadFontAwesome : false, 
-        //element: document.getElementById("editor"),
+        element: document.getElementById("editor"),
         renderingConfig: {
-            codeSyntaxHighlighting: true,
+             codeSyntaxHighlighting: true,
         },
      });
 </script> {% endblock %}
