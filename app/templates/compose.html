@@ -14,8 +14,10 @@
 <div class="container">
     <p>You have loggged in as {{ g.user.username }}. Not? <a href="/logout">Click here to log out.</a></p>
     <hr/>
-    <textarea id="editor">
-    </textarea>
+    <form action="/compose" method="POST">
+        <textarea id="editor">
+        </textarea>
+    </form>
     <div class="container" id="img_update">
         <button class="btn btn-default" data-toggle="modal" data-target="#img_upload_modal">
             Upload images
@@ -27,7 +29,7 @@
     </div>
 
     <hr>
-    <button class="btn btn-default">Submit</button>
+    <button class="btn btn-default" onclick="compose()">Submit</button>
 </div>
 
 <div class="modal fade" id="img_upload_modal" role="dialog" aria-hidden="true">

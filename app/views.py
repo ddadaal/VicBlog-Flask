@@ -4,6 +4,7 @@ from app import submits,user,controllers
 from datetime import datetime
 import pymongo, json, os
 from werkzeug import secure_filename
+from markdown2 import Markdown
 
 @app.before_request
 def before_request():
@@ -63,14 +64,31 @@ def compose():
             return redirect(url_for("login"))
         return render_template("compose.html")
     else:
-        f= request.files["img_upload"]
-        filename=""
-        if f:          
-            filename=secure_filename(f.filename)
-            f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        markdownor = Markdown()
+        package={
+            "username": g.user.username, 
+            "content": markdownor.convert(request.form["content"]), 
+            "title": "233", 
+            "categories":["test"], 
+        }
+        article = submits.ArticleSubmit(package)
+        article.execute()
         return_package={
             "status":"success",
-            "filename": filename,  
-            "url":os.path.join(app.config['UPLOAD_FOLDER'], filename), 
         }
         return json.dumps(return_package)
+        
+    
+@app.route('/upload',methods=["POST"])
+def upload():
+    f= request.files["img_upload"]
+    filename=""
+    if f:          
+        filename=secure_filename(f.filename)
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    return_package={
+        "status":"success",
+        "filename": filename,  
+        "url":os.path.join(app.config['UPLOAD_FOLDER'], filename).replace("app/",""), 
+    }
+    return json.dumps(return_package)

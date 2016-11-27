@@ -54,7 +54,7 @@ class LoginSubmit(BaseSubmit):
             return 401, ""
 
 class ArticleSubmit(BaseSubmit):
-    def __init__(self, ArticlePackage):
+    def __init__(self, ArticlePackage:dict):
         self.username = ArticlePackage["username"]
         self.content=ArticlePackage["content"]
         self.submit_time=self.acquire_time()
@@ -62,5 +62,5 @@ class ArticleSubmit(BaseSubmit):
         self.categories=ArticlePackage["categories"]
     
     def execute(self):
-        collection="article"
+        collection="articles"
         return database.insert(collection,self.construct_payload())

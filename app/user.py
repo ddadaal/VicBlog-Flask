@@ -3,10 +3,10 @@ from jose import jwt
 
 secret="hhh233333333333333333"
 
-def generate(username,role):
+def generate(username:str,role:str) -> str:
     return jwt.encode({"username":username,"role":role}, secret, algorithm='HS256')
 
-def decode(token):
+def decode(token:str) -> dict:
     return jwt.decode(token,secret,algorithms=['HS256'])
 
 

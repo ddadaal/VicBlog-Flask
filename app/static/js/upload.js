@@ -5,7 +5,7 @@ function img_upload() {
     var form= new FormData(document.getElementById("form_img_upload"));
     $.ajax({
         type: "POST", 
-        url: "/compose", 
+        url: "/upload", 
         contentType: false,
         data: form,  
         processData : false, 
@@ -38,9 +38,26 @@ function update_list(){
         url.innerText = file_list[filename];
         file.innerHTML="Filename: {0} :".format(filename);
         file.appendChild(url);
+        list.innerHTML= "";
         list.append(file);
     }
 
 }
 
-
+function compose(){
+    var form= new FormData();
+    form.append("content",simplemde.value());
+    $.ajax({
+        type: "POST", 
+        url : "/compose",   
+        data: form, 
+        processData: false,
+        contentType: false, 
+        success : function (msg){
+            var resp=JSON.parse(msg);
+            if (resp["status"]==="success"){
+                window.location.href="/articles";
+            }
+        }
+    })
+}
