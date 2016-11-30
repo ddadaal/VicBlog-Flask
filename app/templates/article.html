@@ -1,16 +1,22 @@
 {% extends "base.html" %}
 {% block js %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/highlight.default.min.css') }}" />
+<script src="{{ url_for('static',filename='js/highlight.min.js') }}"></script>
 <script type="text/javascript">
 init("Articles","articles");
+hljs.initHighlightingOnLoad();
 </script>
 {% endblock %}
 
 {% block content %}
 {% if article %}
-<p>{{article.title}}</p>
-<hr/>
-<p>{{article.content}}</p>
-<hr/>
+<div class="container">
+    <h2>{{article.title}}</h2>
+    <p class="text-right"> By {{article.username}} at {{article.submit_time}}</p>
+    <hr/>
+    <p>{{article.content}}</p>
+    <hr/>
+</div>
 {% else %}
 <p> Not found! </p>
 {% endif %}

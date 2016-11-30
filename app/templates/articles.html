@@ -11,7 +11,8 @@ init("Articles","articles");
     <ul>
 {% for article in articles %}
     <li>
-        <a href="/articles/{{ article.id }}">{{article.title}}</a>
+        <a class="text-left" href="/articles/{{ article.id }}">{{article.title}}</a>
+        <p class="text-right">By {{article.username}} at {{article.submit_time}}</p>
         <hr>
     </li>
 {% endfor %}

@@ -1,6 +1,8 @@
-import requests, datetime, json
+import requests, json
 from app import database, user
 from markdown2 import Markdown
+from flask import Markup
+from datetime import datetime
 
 
 class BaseSubmit():
@@ -11,7 +13,7 @@ class BaseSubmit():
         return self.__dict__
 
     def acquire_time(self):
-        return datetime.datetime.strftime(datetime.datetime.utcnow(),"%a, %d %b %Y %H:%M:%S GMT")
+        return datetime.now().timestamp()
 
 class RegisterSubmit(BaseSubmit):
     def __init__(self, RegisterPackage):
@@ -65,3 +67,11 @@ class ArticleSubmit(BaseSubmit):
 
     def execute(self):
         return database.insert(self.collection,self.construct_payload())
+    
+
+def format_article(article):
+    formated =article
+    markdownor=Markdown()
+    formated["content"] = Markup(markdownor.convert(article["content"]))
+    formated["submit_time"]=datetime.fromtimestamp(article["submit_time"]).strftime("%B %d, %Y")
+    return formated

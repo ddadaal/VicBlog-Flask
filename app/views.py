@@ -1,10 +1,9 @@
 from app import app
-from flask import render_template, request, flash, redirect, Response, make_response, Markup, g, url_for
+from flask import render_template, request, flash, redirect, Response, make_response, g, url_for
 from app import submits,user,database
 from datetime import datetime
 import pymongo, json, os
 from werkzeug import secure_filename
-from markdown2 import Markdown
 
 @app.before_request
 def before_request():
@@ -58,13 +57,7 @@ def about():
 def articles():
     articles=[]
     for article in database.find("articles",None):
-        articles.append({
-            "id":article["id"], 
-            "username":article["username"],  
-            "content":Markup(article["content"]),
-            "submit_time":article["submit_time"],
-            "title":article["title"], 
-        })
+        articles.append(submits.format_article(article))
     return render_template("articles.html",articles=articles)
 
 @app.route('/compose',methods=["GET","POST"])
@@ -74,10 +67,10 @@ def compose():
             return redirect(url_for("login"))
         return render_template("compose.html")
     else:
-        markdownor = Markdown()
+ 
         package={
             "username": g.user.username, 
-            "content": markdownor.convert(request.form["content"]), 
+            "content": request.form["content"], 
             "title": request.form["title"], 
             "categories":["test"], 
         }
@@ -90,8 +83,7 @@ def compose():
 @app.route('/articles/<article_id>')
 def view_article(article_id):
     article = database.find_one("articles",{"id":article_id})
-    article["content"] = Markup(article["content"])
-    return render_template("article.html",article=article)
+    return render_template("article.html",article=submits.format_article(article))
 
     
 @app.route('/upload',methods=["POST"])
@@ -104,6 +96,7 @@ def upload():
     return_package={
         "status":"success",
         "filename": filename,  
-        "url":os.path.join(app.config['UPLOAD_FOLDER'], filename).replace("app/",""), 
-    }
+        "url": url_for('static', filename="upload/" + filename)
+    }   
     return json.dumps(return_package)
+
