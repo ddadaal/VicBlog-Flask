@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block js %}
+<script type="text/javascript">
+init("Articles","articles");
+</script>
+{% endblock %}
+
+{% block content %}
+{% if article %}
+<p>{{article.title}}</p>
+<hr/>
+<p>{{article.content}}</p>
+<hr/>
+{% else %}
+<p> Not found! </p>
+{% endif %}
+{% endblock %}

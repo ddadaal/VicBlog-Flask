@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, flash, redirect, Response, make_response, Markup, g, url_for
-from app import submits,user,controllers
+from app import submits,user,database
 from datetime import datetime
 import pymongo, json, os
 from werkzeug import secure_filename
@@ -8,7 +8,9 @@ from markdown2 import Markdown
 
 @app.before_request
 def before_request():
-    controllers.check_login()
+    token=request.cookies.get("login")
+    current_user = user.User.create_from_token(token)
+    g.user = current_user
 
 @app.route("/")
 def index():
@@ -54,7 +56,15 @@ def about():
 
 @app.route('/articles')
 def articles():
-    articles=controllers.acquire_articles()
+    articles=[]
+    for article in database.find("articles",None):
+        articles.append({
+            "id":article["id"], 
+            "username":article["username"],  
+            "content":Markup(article["content"]),
+            "submit_time":article["submit_time"],
+            "title":article["title"], 
+        })
     return render_template("articles.html",articles=articles)
 
 @app.route('/compose',methods=["GET","POST"])
@@ -68,16 +78,21 @@ def compose():
         package={
             "username": g.user.username, 
             "content": markdownor.convert(request.form["content"]), 
-            "title": "233", 
+            "title": request.form["title"], 
             "categories":["test"], 
         }
         article = submits.ArticleSubmit(package)
         article.execute()
-        return_package={
+        return json.dumps({
             "status":"success",
-        }
-        return json.dumps(return_package)
+        })
         
+@app.route('/articles/<article_id>')
+def view_article(article_id):
+    article = database.find_one("articles",{"id":article_id})
+    article["content"] = Markup(article["content"])
+    return render_template("article.html",article=article)
+
     
 @app.route('/upload',methods=["POST"])
 def upload():

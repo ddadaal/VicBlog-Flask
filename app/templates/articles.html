@@ -11,9 +11,8 @@ init("Articles","articles");
     <ul>
 {% for article in articles %}
     <li>
-        <a>{{article.title}}</a>
+        <a href="/articles/{{ article.id }}">{{article.title}}</a>
         <hr>
-        {{article.content}}
     </li>
 {% endfor %}
     </ul>

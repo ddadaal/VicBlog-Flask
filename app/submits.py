@@ -55,12 +55,13 @@ class LoginSubmit(BaseSubmit):
 
 class ArticleSubmit(BaseSubmit):
     def __init__(self, ArticlePackage:dict):
+        self.collection="articles"
         self.username = ArticlePackage["username"]
         self.content=ArticlePackage["content"]
         self.submit_time=self.acquire_time()
         self.title=ArticlePackage["title"]
         self.categories=ArticlePackage["categories"]
-    
+        self.id=str(database.count("articles"))
+
     def execute(self):
-        collection="articles"
-        return database.insert(collection,self.construct_payload())
+        return database.insert(self.collection,self.construct_payload())

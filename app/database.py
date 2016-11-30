@@ -20,3 +20,7 @@ def find_one(collection, query):
 def find(collection, query):
     db=connect()
     return db[collection].find(query)
+
+def count(collection):
+    db=connect()
+    return db[collection].count()

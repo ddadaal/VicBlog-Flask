@@ -47,6 +47,7 @@ function update_list(){
 function compose(){
     var form= new FormData();
     form.append("content",simplemde.value());
+    form.append("title",document.getElementById("title").value);
     $.ajax({
         type: "POST", 
         url : "/compose",   
