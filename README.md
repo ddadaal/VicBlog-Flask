@@ -4,33 +4,50 @@ Personal blog now rewritten with React, Typescript and Ant-design!
 
 Backend now remains unchanged, and frontend is my priority.
 
+
 ## Build this project
+
 Just type `webpack` since hot reload hasn't been configured yet :( and you need to rebuild every time sources are changed.
 
 
 ----------
 
 # RTBAW Environment Initialization Guide 
+
 ( Updated Jan 4, 2017 )
+
 To initialize a minimal React+Typescript+Babel+Ant-design+Webpack project, go through the followings.
 
 ### What will be available?
+
 React, Typescript, Babel,Webpack  and Ant-design components.
+
 **Currently no hot-reload , since I have no idea about node.js and don't want to mess the structure :(**
+
 
 ### Structure
 ├── dist
+
 │   └── bundle.js
+
 ├── index.html  // containing only header and one div element with id **app** to mount the app
+
 ├── package.json 
+
 ├── README.md
+
 ├── src
+
 │   ├── components 
+
 │   ├── index.tsx // App entry.
+
 ├── tsconfig.json
+
 └── webpack.config.js
 
 ### Requisites
+
 npm
 
 ### Steps
@@ -71,7 +88,9 @@ npm
 }
 ```
 `"module": "es2015",`  Babel-plugin-import needs es6-typed module code form to work properly.
+
 `"jsx":"preserve"`  Preserves es2015 and jsx for babel and babel-plugin-import.
+
 `"allowSyntheticDefaultImports": true` Ignores all errors of *TS1192: Module has no default export.*
 
   - .babelrc
@@ -88,8 +107,11 @@ npm
   - webpack.config.js     
     
      Currently `Bash on Windows` has a bug about unimplemented `networkInterfaces()` preventing `css-loader` and `style-loader` from working. 
+
      The code in the first line by [this](http://m.blog.csdn.net/article/details?id=53021652) solves the problem, but it might slower the compliation.
+
      So if you are not on`Bash on Windows`, this is NOT NEEDED!
+
 ```     
      require('os').networkInterfaces = () => ({});
 
@@ -121,11 +143,13 @@ npm
 ```
 
 - Packaging
+
   Just run `webpack`.
   
 - Done
 
 ### Tested Environment
+
 Bash on Windows (Windows version 14393 and Ubuntu version 16.04)
 
   
