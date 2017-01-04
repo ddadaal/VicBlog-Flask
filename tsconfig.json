@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "target": "es2015",
+    "noImplicitAny": false,
+    "sourceMap": false,
+    "jsx":"preserve",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": false
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
