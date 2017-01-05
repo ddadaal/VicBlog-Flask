@@ -6,7 +6,7 @@
     "sourceMap": false,
     "jsx":"preserve",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": false
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules"
