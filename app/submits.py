@@ -74,4 +74,5 @@ def format_article(article):
     markdownor=Markdown()
     formated["content"] = Markup(markdownor.convert(article["content"]))
     formated["submit_time"]=datetime.fromtimestamp(article["submit_time"]).strftime("%B %d, %Y")
+    del formated["_id"]
     return formated

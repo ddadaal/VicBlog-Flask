@@ -1,0 +1,7 @@
+database:
+username:root
+password:nq5VaFDavieESwX3
+port:27891
+Apache Secret Key : nq5VaFDavieESwX4
+
+admin nq5VaFDavieESwX4
