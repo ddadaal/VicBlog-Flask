@@ -8,12 +8,12 @@ module.exports = {
     filename: './dist/bundle.js',
   },
   resolve: {
-    extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js", ".jsx","css"],
+    extensions: ["",".webpack.js", ".web.js", ".ts", ".tsx", ".js", ".jsx","css"],
 
   },
   module: {
     loaders: [{
-      test: /\.tsx?$/, loaders: ['babel-loader', 'ts-loader'], exclude: /node_modules/,
+      test: /\.tsx?$/, loaders: ['babel-loader', 'awesome-typescript-loader'], exclude: /node_modules/,
     }, {
       test: /\.css$/, // Only .css files
       loader: 'style!css' // Run both loaders
@@ -21,7 +21,10 @@ module.exports = {
       test: /\.(png|jpg)$/,
       loader: 'url?limit=25000'
     }
-    ],
+    ,{
+      test: /\.json$/,
+      loader:'json'
+    }]
   },
   externals: {
     "react": "React",

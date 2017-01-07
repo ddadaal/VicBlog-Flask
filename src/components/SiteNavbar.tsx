@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Link } from 'react-router';
 import { Col, Row, Menu, Layout } from 'antd';
 const { Header }= Layout;
-import { AccountIndicator } from './AccountIndicator';
 
 interface NavbarProps { selectedTab?:number }
 
@@ -21,12 +20,11 @@ export class SiteNavbar extends React.Component<NavbarProps,undefined>{
             <Menu style={{ fontSize:15, margin:"16px 0px 0px 0px"}} theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
             <Menu.Item key='0'></Menu.Item>
             <Menu.Item key='1'><Link className="navLink" to="/">Home</Link></Menu.Item>
-            <Menu.Item key='2'>Articles</Menu.Item>
+            <Menu.Item key='2'><Link className="navLink" to="/articles">Articles</Link></Menu.Item>
             <Menu.Item key='3'><Link className="navLink" to="/about">About</Link></Menu.Item>
             </Menu>
             </Col>
             <Col span={4}>
-            <AccountIndicator />
             </Col>
             </Row>
             </Header>
