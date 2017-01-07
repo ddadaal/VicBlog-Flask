@@ -8,6 +8,26 @@ import os
 from flask_cors import CORS, cross_origin
 from werkzeug import secure_filename
 
+@app.route("/api/login",methods=["GET","POST"])
+def api_login():
+    if request.method == "GET":
+        return json.dumps({"status":"post here"})
+
+    login_package = {
+            'username': request.json['username'],
+            'password': request.json['password'],
+            'role': "user",
+        }
+    submit = submits.LoginSubmit(login_package)
+    status, token = submit.execute()
+
+    return_dict = {
+            "status": status,
+            "token": token,
+            "user": user.User.create_from_token(token),
+    }
+    return json.dumps(return_dict,ensure_ascii=False,cls=user.UserEncoder)
+
 
 @app.route("/api/articles")
 def api_articles():
@@ -30,6 +50,10 @@ def api_register():
     result= submit.execute()
     return json.dumps({"status":result})
 
+@app.route("/api/articles/<id>")
+def api_view_article(id):
+    article = database.find_one("articles", {"id": id})
+    return json.dumps(submits.format_article(article),ensure_ascii=False)
 
 @app.before_request
 def before_request():

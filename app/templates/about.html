@@ -9,27 +9,37 @@ init("About","about");
 
 {% block content %}
 
-<p>有啥好写的。</p>
 
-<p>技术细节： <br>
-后端：Python 3 + Flask + MongoDB （没做到MVC） <br>
-前端：Bootstrap + jQuery/Javascript混用（不用前端框架的原因：不会） <br>
-尽量少用第三方库，但因为我javascript菜+有的库确实自己不会写。使用的第三方库有： <br>
-1.  <a href="https://github.com/mpdavis/python-jose/">Python-jose</a> <br>
-2.  <a href="https://github.com/NextStepWebs/simplemde-markdown-editor">SimpleMDE</a>（一个js写的Markdown编辑器） <br>
-3.  <a href="https://github.com/js-cookie/js-cookie">js.cookie.js</a>（操作Cookie的。没想到Javascript操作Cookies这么恶心） <br>
-4.  <a href="https://highlightjs.org/">highlight.js</a>（用于代码高亮） <br>
-5.  <a href="https://github.com/trentm/python-markdown2">markdown2</a>（Python3的转换Markdown到HTML的库） <br>
-6. to be added</p>
+<h1 id="about-this-blog">About this blog</h1>
 
-<p>服务器暂时放在DigitalOcean。Github学生包送的50刀用10个月应该没问题。 <br>
-域名用”臭名昭著“的.tk，虽然域名现在不贵但不想买。免费的怎么就不能用了？</p>
+<p>At the time when Internet was just starting to develop, computers were not owned by everyone, and ActiveX and Flash were fresh and applied all over the Internet, personal blog was something fashional for Internet users. They were used to writing something on the blogs, with pictures, and decorated them with varieties of themes. Some bloggers simply recorded their personal lives as what we do now in social media. Some dalaos filled their blogs with knowledge, teaching people a lot. And some dalaos even decorated their blogs with tons of animations, colors and weird shapes at the time when HTML5/CSS3 didn’t exist and network speed was poor, impressing the viewers most of whom were just new to this fancy world. </p>
 
-<p>想转坑ASP.NET Core及微软技术栈。鬼知道什么时候转。</p>
+<p>I always want to have a personal blog. I keep trying to find the blog that suits me from online providers, like wordpress, lofter, even QQZone, but (maybe for the reason that I don’t know) none satisify me. Meanwhile, I found building a blog a benefitial, interesting, but tough and challenging task. If I built and maintained the blog BUILT BY MYSELF, I would never be limited, by functions, themes or costs. I could implement whatever functions I want, decorated whatever I want, and kept up with the rapidly developing technical trend. But it was so hard and complicated that I even dared not get started.</p>
 
-<p>这个版本虽然有登录，但评论等功能还没做好。所以注册了也没什么用。</p>
-<p>最近可能要沉迷于C、DLX、微积分和离散数学了，还有各种各样论文，不知道会不会更新</p>
+<p>But I just want it!</p>
 
-<p>南大软院弱鸡 <br>
-写于2016-11-30</p>
+<p>In the November and December of 2016, I learned and wrote the first version (maybe prototype?) of my blog with Flask and jQuery and successfully deployed it on DigitalOcean, The knowledge I learned from it helps me to build <a href="http://njuadmin.tk">NJUAdmin</a> in a week. Now it is simple and easy to learn, but has some fatal disadvantages that forces me to rebuild it with better and more modern technologies.</p>
+
+<ol>
+<li>Poor modularity</li>
+<li>Limited language features</li>
+<li>Difficulty in maintenance and further development</li>
+<li>Lack of modern work flow</li>
+</ol>
+
+<p>Considering that the features that <a href="http://njuadmin.tk">NJUAdmin</a> consists of requires modularity to function well, I am now rewriting my blog mainly with the following stack:</p>
+
+<ol>
+<li>Front-end: <strong>React, Redux and other components in React ecosystem, Typescript, Ant-design</strong></li>
+<li>Back-end: <strong>ASP.NET Core+ MongoDB/SQL Server</strong></li>
+<li>Host: <strong>DigitalOcean</strong>, may move to <strong>Microsoft Azure</strong> in the future</li>
+</ol>
+
+<p>This is a hard and long way to rebuild and perfect this project, but until Jan 7, 2017, all functions in the prototype version have been implemented, and I am planning to publish a new version when comment system is ready.</p>
+
+<p>If you are interesting in this open-source project, please check out the <a href="https://github.com/viccrubs/VicBlog">Github Repository</a>.</p>
+
+<p>By A Ruoji in Software Engineering of Nanjing University</p>
+
+<p>In Jan 7, 2017</p>
 {% endblock %}

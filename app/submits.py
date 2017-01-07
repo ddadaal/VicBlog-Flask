@@ -43,7 +43,7 @@ class LoginSubmit(BaseSubmit):
     def validate_login(self):
         query={"username":self.username}
         document=database.find_one("users",query)
-        if document['password']==self.password:
+        if document and document['password']==self.password:
             return True, document
         else:
             return False, None
@@ -51,9 +51,9 @@ class LoginSubmit(BaseSubmit):
     def execute(self):
         status, document=self.validate_login()
         if status:
-            return 200, user.generate(document["username"],document["role"])
+            return "success", user.generate(document["username"],document["role"])
         else:
-            return 401, ""
+            return "failure", ""
 
 class ArticleSubmit(BaseSubmit):
     def __init__(self, ArticlePackage:dict):
@@ -69,10 +69,13 @@ class ArticleSubmit(BaseSubmit):
         return database.insert(self.collection,self.construct_payload())
     
 
-def format_article(article):
+def format_article(article,needMarkUp=True):
     formated =article
     markdownor=Markdown()
-    formated["content"] = Markup(markdownor.convert(article["content"]))
+    if needMarkUp:
+        formated["content"] = Markup(markdownor.convert(article["content"]))
+    else:
+        formated["content"] = article["content"]
     formated["submit_time"]=datetime.fromtimestamp(article["submit_time"]).strftime("%B %d, %Y")
     del formated["_id"]
     return formated
