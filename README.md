@@ -5,22 +5,27 @@ Personal blog now rewritten with React, Typescript and Ant-design!
 Backend now remains unchanged, and frontend is my priority.
 
 
-## Build this project
+## Run this project
 
 Just type `webpack` since hot reload hasn't been configured yet :( and you need to rebuild every time sources are changed.
 
+Updated Jan 9, 2017:
+Now webpack-dev-server is ready, so just run `npm start` to start the server, and the page will reload everytime sources are changed and recompiled.
+Hot reload module seems to not working on Windows or WSL, so just auto-refresh is just a compromise :( 
 
 ----------
 
 # RTBAW Environment Initialization Guide 
 
-( Updated Jan 4, 2017 )
+( Updated Jan 9, 2017 )
 
 To initialize a minimal React+Typescript+Babel+Ant-design+Webpack project, go through the followings.
 
 ### What will be available?
 
 React, Typescript, Babel,Webpack  and Ant-design components.
+
+And webpack-dev-server and auto-refresh.
 
 **Currently no hot-reload , since I have no idea about node.js and don't want to mess the structure :(**
 
@@ -46,6 +51,8 @@ React, Typescript, Babel,Webpack  and Ant-design components.
 
 └── webpack.config.js
 
+└── server.js
+
 ### Requisites
 
 npm
@@ -67,10 +74,16 @@ npm
     - `npm install -D style-loader css-loader`
     - `npm install -D babel-plugin-import` : Needed by ant-design to partially import components.
     - `npm install --save antd @types/antd`
+    - `npm install -D webpack-dev-server`
+
 - Modifications (IMPORTANT, since I spent too much time on these small but critical things.)
+
   **You can directly download the files to your project.**
-  
-     - tsconfig.json
+
+  - server.js
+    Simply copy and paste xD
+
+  - tsconfig.json
 ```
   {
 	  "compilerOptions": {
@@ -104,6 +117,15 @@ npm
       }]]
      }
 ```
+
+  - package.json
+
+```
+    "scripts": {
+         "start": "node server.js"
+    },
+```
+
   - webpack.config.js     
     
      Currently `Bash on Windows` has a bug about unimplemented `networkInterfaces()` preventing `css-loader` and `style-loader` from working. 
@@ -117,6 +139,8 @@ npm
 
      module.exports = {
     entry: {
+      'webpack-dev-server/client?http://localhost:3000',
+      'webpack/hot/dev-server',
       app:"./src/index.tsx"
     },
     output: {
@@ -148,10 +172,12 @@ npm
   
 - Done
 
+  And start the dev server by `npm start`
+
 ### Tested Environment
 
 Bash on Windows (Windows version 14393 and Ubuntu version 16.04)
-
+Windows (version 14393)
   
 
 
