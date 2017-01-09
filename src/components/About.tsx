@@ -5,6 +5,6 @@ export class About extends React.Component<undefined,undefined>{
         super();
     }
     render(){
-        return <div className="Content"> Hi I'm About!</div>;
+        return <div className="Content"> I's sd   !</div>;
     }
 }

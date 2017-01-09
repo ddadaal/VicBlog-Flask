@@ -1,4 +1,6 @@
 export class Utils{
+
+    public static readonly USER_STATUS_KEY = "user_status";
     static FetchViaJSON(url:string,payload:Object,callback:(json:any)=>any):void{
         let initProps = {
             cors:"cors",
@@ -28,4 +30,24 @@ export class Utils{
         articles:Utils.APIRoot+"articles",
         article:Utils.APIRoot+"articles/"
     };
+
+    public static storeLoginStatus(status:LoginStatus){
+        window.localStorage.setItem(Utils.USER_STATUS_KEY,JSON.stringify(status));
+    }
+
+    public static loadLoginStatus():LoginStatus{
+        let parsed = JSON.parse(window.localStorage.getItem(Utils.USER_STATUS_KEY));
+        if (parsed){
+            return parsed;
+        }
+        else{
+            return {
+                LoggedIn:false,
+                User:undefined
+            };
+        }
+    }
+
 } 
+
+export default Utils;

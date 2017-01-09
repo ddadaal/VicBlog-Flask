@@ -1,29 +1,40 @@
 import * as React from 'react';
 import { Link } from 'react-router';
-import { Form, Icon, Input, Button, Card, message } from 'antd';
+import { Form, Icon, Input, Button, Card, message, Modal } from 'antd';
 import { Utils } from "./Utils";
 const FormItem = Form.Item;
 
 interface LoginFormProps {
-    LoginCallback: (User: User) => any;
+    LoginCallback: (status: LoginProcessStatus) => any;
 }
 
-class loginForm extends React.Component<LoginFormProps, undefined>{
+interface LoginFormStates{
+    processing:boolean
+}
+
+export class loginForm extends React.Component<LoginFormProps, LoginFormStates>{
     constructor(props) {
         super(props);
+        this.state={
+            processing:false
+        };
     }
 
     handleSubmit(e: any) {
         e.preventDefault();
         (this.props as any).form.validateFields((err, values) => {
             if (!err) {
-                console.log(values);
-
+                this.setState({
+                    processing:true
+                });
                 Utils.FetchViaJSON(Utils.APIS.login, values, (json: any) => {
+                    this.setState({
+                        processing:false
+                    });
                     if (json.status == "success") {
-                        this.props.LoginCallback({ Username: json.user.username });
+                        this.props.LoginCallback({StatusText:"success",Payload:{ Username: json.user.username,Token:json.token }});
                     } else {
-                        message.error("Login failed");
+                        this.props.LoginCallback({StatusText:"failure",Payload:undefined});
                     }
                 });
             }
@@ -51,10 +62,10 @@ class loginForm extends React.Component<LoginFormProps, undefined>{
                         )}
                 </FormItem>
                 <FormItem>
-                    <Button type="primary" htmlType="submit" className="login-form-button">
+                    <Button type="primary" htmlType="submit" className="login-form-button" loading={this.state.processing}>
                         Log in
                     </Button>
-                    <Link to="/register"><Button>Register</Button></Link>
+                    <Link to="/register"><Button>Register!</Button></Link>
                 </FormItem>
             </Form>
         );
@@ -65,9 +76,9 @@ export class LoginForm extends React.Component<LoginFormProps, undefined>{
     render() {
         let CreatedForm = Form.create({})(loginForm);
         return (
-            <Card title="Login">
+            <Modal title="Login" >
                 <CreatedForm LoginCallback={this.props.LoginCallback} />
-            </Card>
+            </Modal>
         );
     }
 }

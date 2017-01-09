@@ -2,7 +2,8 @@ import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Card, Spin, Layout, Tag } from 'antd';
 var hljs = require("../../../node_modules/highlight.js/lib/highlight.js");
-import "../../../node_modules/highlight.js/styles/default.css"
+import "../../../node_modules/highlight.js/styles/default.css";
+import "../../assets/css/markdown.css";
 const { Header, Content } = Layout;
 import { Utils} from "../Utils";
 
@@ -19,7 +20,6 @@ export class ArticlePage extends React.Component<undefined, ArticlePageStates>{
 
     }
     componentDidMount() {
-
         this.updateArticle((this.props as any).params.ID);
     }
 
@@ -66,7 +66,7 @@ export class ArticlePage extends React.Component<undefined, ArticlePageStates>{
                         <br />
                         {tags}
                         <div>
-                            <ReactMarkdown source={this.state.Article.Content} />
+                            <ReactMarkdown className="markdown-body" source={this.state.Article.Content} />
                         </div>
                     </div>
                 </div>

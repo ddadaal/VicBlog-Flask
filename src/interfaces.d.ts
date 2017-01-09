@@ -1,6 +1,4 @@
-interface IUser{
-    Username: string
-}
+
 
 interface IArticle extends IArticleItem{
     Content:string
@@ -15,8 +13,9 @@ interface IArticleItem{
     Categories:string[]
 }
 
-declare class User implements IUser {
+declare class User {
     Username: string;
+    Token:string;
 }
 
 declare class Article extends ArticleItem{
@@ -36,4 +35,14 @@ declare class ArticleItem implements IArticleItem{
 interface Action{
     type:string,
     params:Object
+}
+
+declare class LoginStatus{
+    User:User;
+    LoggedIn:boolean;
+}
+
+declare class LoginProcessStatus{
+    StatusText:string;
+    Payload:User;
 }

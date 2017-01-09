@@ -8,7 +8,6 @@ interface ArticleListStates {
 }
 
 
-
 export class ArticleList extends React.Component<undefined, ArticleListStates>{
     constructor() {
         super();
@@ -36,11 +35,6 @@ export class ArticleList extends React.Component<undefined, ArticleListStates>{
     }
 
     updateList() {
-        let myInit: RequestInit = {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'default'
-        };
         let list: ArticleItem[] = [];
 
         Utils.FetchJSON(Utils.APIS.articles, (json: any) => {
@@ -51,6 +45,10 @@ export class ArticleList extends React.Component<undefined, ArticleListStates>{
                 ArticleList: list
             });
         });
+    }
+
+    cacheContents(list:ArticleItem[]){
+        
     }
 
     constructArticleItem(json: any): ArticleItem {

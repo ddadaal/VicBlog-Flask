@@ -1,12 +1,21 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Router, Route, hashHistory, IndexRoute,browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { About } from './components/About';
-import { App } from './containers/App';
+import { AppContainer } from 'react-hot-loader';
+import { Routes } from './Routes';
+import { Router, hashHistory, browserHistory} from 'react-router';
 import "./assets/css/main.css";
 
-ReactDOM.render(
-    <App/>,
-    document.getElementById("app")
-);
+
+const content = (<Router history={browserHistory} routes={Routes}/>);
+
+const renderRoot = ()=>{
+    ReactDOM.render(<AppContainer>{content}</AppContainer>,document.getElementById("app"));
+};
+renderRoot();
+
+if ((module as any).hot) {
+  console.log("call");
+  (module as any).hot.accept('./Routes',renderRoot);
+}

@@ -3,7 +3,7 @@ import { Button, Card } from 'antd';
 import { LoginForm } from './LoginForm';
 
 interface ProfileProps { }
-interface ProfileStates { LoggedIn?: boolean, User?: IUser }
+interface ProfileStates { LoggedIn?: boolean, User?: User }
 
 
 export class ProfileCard extends React.Component<ProfileProps, ProfileStates>{
@@ -33,7 +33,7 @@ export class ProfileCard extends React.Component<ProfileProps, ProfileStates>{
         if (this.state.LoggedIn) {
             return <Card title={`Welcome, ${this.state.User.Username}`}>
             Your username: {this.state.User.Username}
-            <Button onClick={this.onLogout.bind(this)}>Log out</Button>
+            <Button onClick={this.onLogout.bind(this)}>Log out!</Button>
             </Card>;
         }
         else {
